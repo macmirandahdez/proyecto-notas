@@ -1,0 +1,271 @@
+
+Uso de Git
+
+-- Inicia la configuración global
+git config --global user.name "devPruebas"
+
+-- Esta es la cuenta de Github para enlazar a GitHub
+git config --global user.email mac.miranda.hdez@gmail.com
+
+-- Esta isntrucción indica el uso de el editor en el que se conectara:
+git config --global core.editor "code --wait"
+
+--Abrir archivo de configuración parsa validar
+
+git config --global -e
+
+-- Configurar el salto de linea al manejarse en windows
+-- git determina como manejar el salto de linea
+git config --global core.autocrlf input true
+
+-- En caso de error reemplazar el código anterior:
+git config --global --replace-all core.autocrlf true
+
+-- nos muestra la lista de opciones que tiene git desde terminal
+git config --global -h
+
+--Configutracion desde terminal
+git config --global -list
+
+-- ver una lista
+ls
+
+-- ubicarse en una carpeta
+cd carpeta
+
+-- ver en que carpeta estoy
+pwd
+
+--crear una carpeta
+mkdir
+--Remover carpeta
+rmdir
+-- Crera un proyecto nuevo git
+git init
+
+-- verificar que se creo (ya que está oculto) 
+ls -a
+
+--Abrir Visual Studio con git
+code .
+
+-- Ctrl + ñ  : Se abre terminal
+
+-------------------------------
+Flujo de Git
+
+Untracked: Significa que no sea marcado cierto archivo para subirse
+
+Local: Si Marcar
+EN este momento no s eha hehcos cambios
+
+        ---> Usa git add
+
+Stage: Marcados
+En este momento Git ya sabe que se empiezan a hacer modificaciones
+
+        ---> Usa git commit
+
+Comit: Fotografiados
+Toma el momento de los cambios
+
+        ---> Usa git push
+
+Remote: En el servidor
+Al momento de dar push se actualiza a la última versión
+
+
+Para cambio de un estado STAGE se debe colocar:
+GIT ADD archivoACambiarDeEstado  
+
+--determina el estado actual del proyecto 
+git status 
+
+para pasar de STAGE a UNTRACKED
+
+git rm --cached <file>
+
+
+-- Para tomar una snapshot de los cambios
+Se realiza 
+
+git commit -m "Descripcion_De_Cambio"
+
+--Para restaurar un archivo como el último commit
+
+git restore <archivo>
+
+Se ´puede crear un archivo .gitignore para colocar 
+que archivo o carpeta será ignorado
+
+Se agrega dentro del archivo los datos a ignorar
+ Y se agrega con un .git add .gitignore
+
+ y se agrega un git commit -m "Se agrega GitIgnore"
+
+ ---- Este comando nos deja ver la difernecia entre
+ un archivo actual y después
+ git DIFF  
+
+-- Forma corta para checar el status de git
+git status -s
+
+-- Forma de ver los commits
+git log  
+
+--Forma de ver los commit en una sola linea cada uno
+git log --oneline
+
+-- Ramas
+-- Nos dice en que rama nos encontramos
+
+git branch
+
+-- Crear rama alternativa
+--  (checkout) => cambio ,  (-b) de rama 
+git checkout -b <nombre_de_rama>
+
+
+-- cambiar a rama master
+git checkout master
+
+-- Para pasar el cambio de una rama a la master (Hacer un merge)
+
+git merge ramaNueva
+
+---------------- GIT EN VS
+
+Extensiones
+Plugin Git Graph de mhutchie
+
+
+--------Git Remote y Git origin
+Estos comandos son para cocenctar de forma remota nuestro repositorio
+
+echo "# proyecto-curso-git" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/macmirandahdez/proyecto-curso-git.git
+git push -u origin main    ---> En este caso se usa la rama master porque es en la que nos ubicamos
+
+
+-------- Obtener Versión Pull
+--git pull es el comando para obtener los cambios nuevos del repositorio 
+
+--para obtener algun cambio del servidor de git es conveniente ubicarse en la rama en cuestión                        
+
+git branch -u origin/master
+-- un avez ubicado en la rama se obtiene información del origen
+git pull
+
+
+------- Publicar version Compartir cambios
+git push
+
+git push origin master
+
+
+para el borrado git branch -d <<nombre_rama>>
+
+La borra de forma local
+
+
+----- git tag 
+--Sirve para identificar una determinar commits  (de cierta manera una versión nueva )
+
+Se tagean los tag más importantes
+
+
+-- git switch 
+-- Permite cambiar de rama ...
+
+
+--- Para posicionarse en determinado comit
+git checkout <<hash_de_comit_a_posiiconarse>>
+
+---- prueba
+
+git switch rama2
+git log --oneline
+git checkout 06c2911
+git log --oneline
+git checkout -b rama3
+
+crear archivo readme.txt
+
+GIT ADD readme.txt
+git commit -m "Agrega un archivo de texto a rama nueva"
+
+----- Git Stash
+--Guarda el directorio sin commit en el repositorio y localmente guarda nuestros cambios
+Por ejemplo en una clase en la uq etemos trabajando y reuslte que se requiera un cambio
+totalmente ditinto a lo que se está desarrollando (un cambio de imprevisto)
+
+-- Git stash list
+Enlistar todos los commits
+
+SI al salir de la rama no encuentras los cambios "stasheados" basta abrilo con git stash pop
+
+Si quieres agregar el cambio solo basta hacer un git add al archivo y hacer commit
+
+SI quieres que se refeleje el cambio baasta con colocar git restore <archivo>
+
+-- Eliminar ramas
+
+Nota: Si resulta que te equivocas en dar el lugar d eorigen de un repositorio se puede setear el url
+
+git remote set-url origin https://github.com/macmirandahdez/practica-eliminacion-ramas.git
+
+git remote add origin https://github.com/macmirandahdez/practica-eliminacion-ramas.git
+
+git branch -d <<nombre_rama>>
+(se borra de manera local)
+
+git push origin --delete <<nombre_rama>>
+(se borra de manera remota [repositorio totalmente])
+
+git fetch
+--lista de cambios (historial) realizados
+
+git log --oneline --all
+Trae todos los cambios realizados
+
+-- resetea cambios
+
+--Se puede ocupar git checkout <<nomre_archivo>>
+
+-- git reset
+
+-- Vuelve Unstaged a los archivos que se habían puesto en stage (des marca archivo marcados para modificación)
+
+-- git reset --hard
+deja los archivos como estabn hasta su último commit
+
+Se puede usar git reset --hard para borrar todo un commit agregando el hash obtenido de dicho commit
+git reset --hard <<hash_de_commit>>
+
+-------------
+---------------- Clonar un repositorio de forma remota a local
+copiar la url https 
+en la terminal bash localizarse en la carpeta donde se copiará el repositorio
+agregar 
+git clone <<url_de_repositorio>>
+
+
+------
+git add . --agrega todo
+
+
+----
+Fork: Trabajo bajo contribución
+Se puede hacer un fork de un reposirotio de otro desarrollador
+Se puede ofrecer modificaciones con un pull request
+Se puede aceptar una modificación del repositorio con merge pull request y poder ver los cambios
+
+
+--- Markdown 
+Sirve para poner comentarios en el repositorio
+crear un README.md
+www.stackedit.io/app#
